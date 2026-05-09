@@ -29,6 +29,7 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
 import amirz.aidlbridge.LauncherClientIntent;
+import amirz.shade.byd.BydAutoBridge;
 import amirz.shade.animations.TransitionManager;
 import amirz.shade.hidden.HiddenAppsDrawerState;
 import amirz.shade.icons.pack.IconPackManager;
@@ -84,6 +85,7 @@ public class ShadeLauncherCallbacks implements LauncherCallbacks,
         prefs.registerOnSharedPreferenceChangeListener(this);
         mLauncher.addOnDeviceProfileChangeListener(this);
         UnreadSession.getInstance(mLauncher).onCreate();
+        BydAutoBridge.get(mLauncher).start();
         WorkspaceSleepListener.override(mLauncher);
     }
 
@@ -158,6 +160,7 @@ public class ShadeLauncherCallbacks implements LauncherCallbacks,
     @Override
     public void onResume() {
         Handler handler = mLauncher.getDragLayer().getHandler();
+        BydAutoBridge.get(mLauncher).refreshSnapshot();
         if (mDeferCallbacks) {
             if (handler == null) {
                 // Finish defer if we are not attached to window.
@@ -211,6 +214,7 @@ public class ShadeLauncherCallbacks implements LauncherCallbacks,
         mLauncherClient.onDestroy();
         Utilities.getPrefs(mLauncher).unregisterOnSharedPreferenceChangeListener(this);
         UnreadSession.getInstance(mLauncher).onDestroy();
+        BydAutoBridge.get(mLauncher).stop();
     }
 
     @Override

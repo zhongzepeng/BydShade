@@ -18,4 +18,22 @@
     </string>
     <string name="shadespace_subtext_double" translatable="false">%1$s – %2$s</string>
     <string name="search_hidden_global" translatable="false">Hidden</string>
+    <string name="carplus_scrcpy_starting" translatable="false">Starting scrcpy window…</string>
+    <string name="carplus_scrcpy_start_failed" translatable="false">Unable to start embedded scrcpy session.</string>
+    <string name="carplus_scrcpy_kernel_missing" translatable="false">Missing embedded scrcpy kernel. Provide amirz.shade.carplus.scrcpy.ScrcpyEmbeddedKernel to render into SurfaceView.</string>
+    <string name="carplus_scrcpy_adb_missing" translatable="false">ADB is not available on the car device. Configure a usable adb binary before starting phone projection.</string>
+    <string name="easycontrol_category_title" translatable="false">Easycontrol Connection</string>
+    <string name="easycontrol_phone_host_title" translatable="false">Phone host</string>
+    <string name="easycontrol_phone_ws_port_title" translatable="false">Phone WebSocket port</string>
+    <string name="easycontrol_phone_adb_port_title" translatable="false">Phone ADB port</string>
+    <string name="easycontrol_phone_serial_title" translatable="false">Wireless serial override</string>
+    <string name="easycontrol_phone_usb_serial_title" translatable="false">USB serial override</string>
+    <string name="easycontrol_adb_binary_title" translatable="false">ADB binary</string>
+    <string name="easycontrol_adb_server_host_title" translatable="false">ADB server host</string>
+    <string name="easycontrol_adb_server_port_title" translatable="false">ADB server port</string>
+    <string name="easycontrol_summary_auto" translatable="false">Auto</string>
+    <string name="easycontrol_pref_invalid_number" translatable="false">Enter a valid port number.</string>
+    <string name="default_launcher_prompt_title" translatable="false">Set Shade as default launcher</string>
+    <string name="default_launcher_prompt_message" translatable="false">Shade is open, but it is not the current default Home app. Switch the default launcher to Shade so Home and app drawer always open here.</string>
+    <string name="default_launcher_prompt_confirm" translatable="false">Open Home settings</string>
 </resources>

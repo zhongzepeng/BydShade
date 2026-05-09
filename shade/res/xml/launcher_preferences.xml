@@ -183,6 +183,60 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="category_easycontrol"
+        android:title="@string/easycontrol_category_title">
+
+        <EditTextPreference
+            android:key="pref_carplus_phone_host"
+            android:title="@string/easycontrol_phone_host_title"
+            android:defaultValue="127.0.0.1"
+            android:persistent="true" />
+
+        <EditTextPreference
+            android:key="pref_carplus_phone_port"
+            android:title="@string/easycontrol_phone_ws_port_title"
+            android:defaultValue="17888"
+            android:persistent="true" />
+
+        <EditTextPreference
+            android:key="pref_carplus_phone_adb_port"
+            android:title="@string/easycontrol_phone_adb_port_title"
+            android:defaultValue="5555"
+            android:persistent="true" />
+
+        <EditTextPreference
+            android:key="pref_carplus_phone_serial"
+            android:title="@string/easycontrol_phone_serial_title"
+            android:defaultValue=""
+            android:persistent="true" />
+
+        <EditTextPreference
+            android:key="pref_carplus_phone_usb_serial"
+            android:title="@string/easycontrol_phone_usb_serial_title"
+            android:defaultValue=""
+            android:persistent="true" />
+
+        <EditTextPreference
+            android:key="pref_carplus_adb_binary"
+            android:title="@string/easycontrol_adb_binary_title"
+            android:defaultValue="adb"
+            android:persistent="true" />
+
+        <EditTextPreference
+            android:key="pref_carplus_adb_server_host"
+            android:title="@string/easycontrol_adb_server_host_title"
+            android:defaultValue="10.0.2.2"
+            android:persistent="true" />
+
+        <EditTextPreference
+            android:key="pref_carplus_adb_server_port"
+            android:title="@string/easycontrol_adb_server_port_title"
+            android:defaultValue="5037"
+            android:persistent="true" />
+
+    </PreferenceCategory>
+
     <androidx.preference.PreferenceScreen
         android:key="pref_developer_options"
         android:persistent="false"

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="phone_bridge_app_name">Shade Phone Bridge</string>
+    <string name="phone_bridge_title">Phone App Bridge</string>
+    <string name="phone_bridge_summary">Expose launcher apps and launch commands over WebSocket for the car launcher.</string>
+    <string name="phone_bridge_start">Start service</string>
+    <string name="phone_bridge_stop">Stop service</string>
+    <string name="phone_bridge_endpoint">Endpoint: %1$s</string>
+    <string name="phone_bridge_running">Service running</string>
+    <string name="phone_bridge_stopped">Service stopped</string>
+    <string name="phone_bridge_channel_name">Phone bridge</string>
+    <string name="phone_bridge_channel_desc">WebSocket bridge for the car launcher.</string>
+</resources>

@@ -1,2 +1,6 @@
 include ':IconLoader'
 project(':IconLoader').projectDir = new File(rootDir, 'iconloaderlib')
+include ':PhoneBridge'
+project(':PhoneBridge').projectDir = new File(rootDir, 'phonebridge')
+include ':ProjectionShellServer'
+project(':ProjectionShellServer').projectDir = new File(rootDir, 'projection-shell-server')

@@ -31,6 +31,7 @@
 
     <!-- Swipe down for notifications -->
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- App prediction -->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -125,6 +126,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity-alias
+            android:name="amirz.shade.HomeSettings"
+            android:targetActivity="amirz.shade.ShadeSettings"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@drawable/ic_setting"
+            android:label="@string/settings_button_text">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
 
 
         <activity

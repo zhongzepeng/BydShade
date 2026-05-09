@@ -1,4 +1,18 @@
 final String FRAMEWORK_PREBUILTS_DIR = "prebuilts"
+def embeddedAdbSourceDir = file('shade/embedded-adb')
+def embeddedAdbAssetsDir = file("$buildDir/generated/embedded-adb-assets")
+def projectionShellAssetsDir = file("$buildDir/generated/projection-shell-assets")
+def projectionShellApkDir = file("$rootDir/projection-shell-server/build/outputs/apk/debug")
+def embeddedAdbAbiValue = project.hasProperty('embeddedAdbAbis')
+        ? project.property('embeddedAdbAbis')
+        : (project.hasProperty('embeddedAdbAbi')
+        ? project.property('embeddedAdbAbi')
+        : (System.getenv('EMBEDDED_ADB_ABIS') ?: System.getenv('EMBEDDED_ADB_ABI') ?: 'arm64-v8a'))
+def requestedEmbeddedAdbAbis = embeddedAdbAbiValue
+        .toString()
+        .split(',')
+        .collect { it.trim() }
+        .findAll { !it.isEmpty() }
 
 android {
     defaultConfig {
@@ -30,7 +44,7 @@ android {
     sourceSets {
         shade {
             aidl.srcDirs = ['shade/aidl']
-            assets.srcDirs = ['shade/assets']
+            assets.srcDirs = ['shade/assets', embeddedAdbAssetsDir, projectionShellAssetsDir]
             res.srcDirs = ['shade/res', 'shade/res_translations', 'shade/res_translations_manual']
             java.srcDirs = ['shade/src', 'shade/src_flags', 'src_shortcuts_overrides', 'shade/src_backport']
             manifest.srcFile "shade/AndroidManifest.xml"
@@ -46,10 +60,50 @@ android {
         // Required for AOSP to compile. This is already included in the sysui_shared.jar
         customUIImplementation fileTree(dir: "${FRAMEWORK_PREBUILTS_DIR}/libs", include: 'plugin_core.jar')
     }
-    
+
     dexOptions {
         javaMaxHeapSize "3g"
     }
 }
+
+task prepareEmbeddedAdbAssets {
+    inputs.property("requestedEmbeddedAdbAbis", requestedEmbeddedAdbAbis.join(','))
+    outputs.dir(embeddedAdbAssetsDir)
+
+    doLast {
+        delete embeddedAdbAssetsDir
+        requestedEmbeddedAdbAbis.each { abi ->
+            def sourceDir = new File(embeddedAdbSourceDir, abi)
+            if (!sourceDir.isDirectory()) {
+                throw new GradleException("Missing embedded adb payload for ABI '${abi}' at ${sourceDir}")
+            }
+            copy {
+                from sourceDir
+                into new File(embeddedAdbAssetsDir, "embedded-adb/${abi}")
+            }
+        }
+    }
+}
+
+task prepareProjectionShellAssets {
+    dependsOn ':ProjectionShellServer:assembleDebug'
+    inputs.dir(projectionShellApkDir)
+    outputs.dir(projectionShellAssetsDir)
+
+    doLast {
+        def shellApk = fileTree(dir: projectionShellApkDir, include: ['*-debug.apk']).singleFile
+        if (shellApk == null || !shellApk.isFile()) {
+            throw new GradleException("Missing projection shell server debug APK under ${projectionShellApkDir}")
+        }
+        delete projectionShellAssetsDir
+        copy {
+            from shellApk
+            into projectionShellAssetsDir
+            rename { 'projection-shell-server.jar' }
+        }
+    }
+}
+
+preBuild.dependsOn prepareEmbeddedAdbAssets, prepareProjectionShellAssets
 
 apply from: 'shade/smali.gradle'
